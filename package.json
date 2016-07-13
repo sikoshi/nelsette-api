@@ -13,6 +13,7 @@
     "express": "~4.13.4",
     "mongoose": "^4.5.4",
     "morgan": "~1.7.0",
+    "selenium-webdriver": "^2.53.3",
     "serve-favicon": "~2.3.0"
   }
 }
