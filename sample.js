@@ -2,8 +2,6 @@
 //
 var request = require('request');
 var cheerio = require('cheerio');
-var iconv   = require('iconv-lite');
-
 //
 var nelsette_url = 'http://nelsette.com/qm/upcoming?state=upcoming&currency=KZT&sp=0&ep=374220&ord=0&city=1526384';
 
@@ -65,17 +63,26 @@ request(options, function (error, response, body) {
 
             var pitch = match('.qm_pf span').attr('title')
 
-
+            // Free spots
             var free_spots = match('.spots').text();
+
+            // Fee
             var price = match('.qm_price .f_11').text();
+
+            //
             var link = match('a.qm_right_side').attr('href');
+
+            // Creator
+            var creator = match('a.profile_avatar').attr('title');
 
             console.log('-----------');
             console.log(link);
+            console.log(creator);
             console.log(free_spots);
             console.log(price);
             console.log(kickoff_time + ' - ' + ending_time + ', ' + match_date);
             console.log(pitch);
+
 
         });
     }
