@@ -46,7 +46,7 @@ router.get('/', function(req, res, next) {
                 var match_date = match('.qm_date').text();
 
                 // Pitch
-                var pitch = match('.qm_pf span').attr('title')
+                var pitch = match('.qm_pf span').attr('title').trim();
 
                 // Free spots
                 var free_spots = match('.spots').text();
