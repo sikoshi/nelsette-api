@@ -4,15 +4,62 @@ var router    = express.Router();
 var request = require('request');
 var cheerio = require('cheerio');
 //
-var nelsette_url = 'http://nelsette.com/qm/upcoming?state=upcoming&currency=KZT&sp=0&ep=374220&ord=0&city=1526384';
 
-var options = { encoding: null, method: "GET", uri: nelsette_url};
-
-/* GET users listing. */
+/* GET matches array. */
 router.get('/', function(req, res, next) {
+    
+    // TODO: accept params via GET
+
+    // state
+    var state = 'upcoming';
+    if (typeof(req.param('state')) != 'undefined')
+    {
+        state = req.param('state');
+    }
+
+    // currency
+
+    var currency = 'KZT';
+    if (typeof(req.param('currency')) != 'undefined')
+    {
+        currency = req.param('currency');
+    }
+
+    // stating price
+    var starting_price = 0;
+    if (typeof(req.param('starting_price')) != 'undefined')
+    {
+        starting_price = req.param('starting_price');
+    }
+
+    // ending price
+    var ending_price = 374220;
+    if (typeof(req.param('ending_price')) != 'undefined')
+    {
+        ending_price = req.param('ending_price');
+    }
+
+    // order
+    var order = 0;
+
+    if (typeof(req.param('order')) != 'undefined')
+    {
+        order = req.param('order');
+    }
+
+    // city
+    var city = '1526384';
+
+    if (typeof(req.param('city')) != 'undefined')
+    {
+        city = req.param('city');
+    }
+
+    // Url to request
+    var nelsette_url = 'http://nelsette.com/qm/upcoming?state=' + state + '&currency=' + currency + '&sp=' + starting_price + '&ep=' + ending_price + '&ord=' + order + '&city=' + city;
 
     // Requesting matches page
-    request(options, function (error, response, body) {
+    request({ encoding: null, method: "GET", uri: nelsette_url}, function (error, response, body) {
         if (!error && response.statusCode == 200) {
 
             $ = cheerio.load(body);
